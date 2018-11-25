@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from irc import *
+from sqrt import *
 import time
 import re
 import base64
