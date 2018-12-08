@@ -15,6 +15,7 @@ def init(server, channel, nickname, testchannel):
     irc.channel(testchannel)
     irc.send(chan=testchannel, msg='Startup completed')
 
+
 def refresh():
     text = irc.get_text()
     print(text)
@@ -23,7 +24,7 @@ def refresh():
 
 def eq1():
     irc.send(chan=channel, msg='!ep1')
-    text=refresh()
+    text = refresh()
     m = re.search('([0-9]*)\s/\s([0-9]*)', str(text))
     if m is not None:
         print('[+] ' + str(m))
@@ -41,21 +42,22 @@ def eq1():
 
 def eq2():
     irc.send(chan=channel, msg='!ep2')
-    text=refresh()
+    text = refresh()
     m = re.search('(?<= botep \:)(.*)', str(text))
     print(m)
     if m is not None:
-        try :
+        try:
             print('[+] catched ' + str(text))
             decode = base64.b64decode(str(m.group(1)))
-            print('[+] Decoded string ' + str(decode) + ' From ' + str(m.group(1)) )
+            print('[+] Decoded string ' + str(decode) + ' From ' + str(m.group(1)))
             forge = '!ep2 -rep ' + str(decode)
             print('[+] Sending back ' + str(forge))
             irc.send(chan=testchannel, msg=forge)
             irc.send(chan=channel, msg=forge)
             time.sleep(5)
-        except :
+        except:
             time.sleep(1)
+
 
 def eq3():
     irc.send(chan=channel, msg='!ep3')
@@ -76,9 +78,9 @@ def eq3():
         except:
             time.sleep(1)
 
+
 def eq4():
     time.sleep(1)
-
 
 
 irc = IRC()
@@ -88,16 +90,18 @@ server = "irc.root-me.org"
 nickname = "botep"
 init(server, channel, nickname, testchannel)
 
-
-while 1:
-    text = refresh()
-    if text.find('PINGtest') != -1:
-        irc.send(chan=testchannel, msg='pong')
-    if text.find('eq1start') != -1:
-        eq1()
-    if text.find('eq2start') != -1:
-        eq2()
-    if text.find('eq3start') != -1:
-        eq3()
-    if text.find('eq4start') != -1:
-        eq4()
+try :
+    while 1:
+        text = refresh()
+        if text.find('PINGtest') != -1:
+            irc.send(chan=testchannel, msg='pong')
+        if text.find('eq1start') != -1:
+            eq1()
+        if text.find('eq2start') != -1:
+            eq2()
+        if text.find('eq3start') != -1:
+            eq3()
+        if text.find('eq4start') != -1:
+            eq4()
+except KeyboardInterrupt:
+    print('\n[+] Closing bot')

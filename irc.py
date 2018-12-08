@@ -1,5 +1,6 @@
 import socket
 
+
 class IRC:
     irc = socket.socket()
 
@@ -27,4 +28,3 @@ class IRC:
     def get_text(self):
         text = self.irc.recv(2040)  # receive the text
         return text
-
