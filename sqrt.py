@@ -2,6 +2,7 @@
 
 import math
 
+
 def calc(num1, num2):
     num1 = math.sqrt(float(num1))
     print(float(num1))
