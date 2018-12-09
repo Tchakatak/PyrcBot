@@ -90,7 +90,7 @@ server = "irc.root-me.org"
 nickname = "botep"
 init(server, channel, nickname, testchannel)
 
-try :
+try:
     while 1:
         text = refresh()
         if text.find('PINGtest') != -1:
