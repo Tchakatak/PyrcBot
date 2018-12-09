@@ -1,12 +1,15 @@
-# A simple python irc bot
+# A simple python IRC bot
 
-I created this repository because i need a irc bot for the Root-Me challenge.
+I created this repository because i needed a IRC bot for some Root-Me challenge.
 
 I decided to create only one program to reply to all challenge based on IRC.
 
-This one interract with the challenge bot and a C&C channel.
+This bot is made with pure python 2.7 and do not require any other third party stuff
 
-This is written in pure interrest to make this code evolve.
+This is written in pure interest to make this code evolve.
 
 Please do not use this code to cheat, you will not get any pleasure to do so.
 
+# Usage
+
+To start the bot just execute python bot.py
