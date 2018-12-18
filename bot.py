@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
 from irc import *
-from sqrt import *
+
 import time
 import re
 import base64
 import string
+import math
 
 
 def init(server, channel, nickname, testchannel):
@@ -25,19 +26,22 @@ def refresh():
 def eq1():
     irc.send(chan=channel, msg='!ep1')
     text = refresh()
-    m = re.search('([0-9]*)\s/\s([0-9]*)', str(text))
+    m = re.search('([0-9]*)\s/\s([0-9]*)', str(text)) #Need to improve.
     if m is not None:
-        print('[+] ' + str(m))
-        print('[+] Match numbers ' + m.group(0))
-        num1 = float(m.group(1))
-        print(num1)
-        num2 = float(m.group(2))
-        print(num2)
-        num3 = calc(num1, num2)
-        print(num3)
-        forge = '!ep1 -rep ' + str(num3)
-        irc.send(chan=testchannel, msg=forge)
-        irc.send(chan=channel, msg=forge)
+        try:
+            print('[+] ' + str(m))
+            print('[+] Match numbers ' + m.group(0))
+            num1 = float(m.group(1))
+            num2 = float(m.group(2))
+            num1 = math.sqrt(float(num1))
+            num3 = float(num1) * float(num2)
+            num3 = round(float(num3), 2)
+            forge = '!ep1 -rep ' + str(num3)
+            print('[+] Sending back ' + str(forge))
+            irc.send(chan=channel, msg=forge)
+            time.sleep(5)
+        except: #Too Wide
+            time.sleep(1)
 
 
 def eq2():
@@ -52,10 +56,9 @@ def eq2():
             print('[+] Decoded string ' + str(decode) + ' From ' + str(m.group(1)))
             forge = '!ep2 -rep ' + str(decode)
             print('[+] Sending back ' + str(forge))
-            irc.send(chan=testchannel, msg=forge)
             irc.send(chan=channel, msg=forge)
             time.sleep(5)
-        except:
+        except: #Too Wide
             time.sleep(1)
 
 
@@ -72,16 +75,16 @@ def eq3():
             decode = string.translate(str(m.group(1)), rot13)
             forge = '!ep3 -rep ' + str(decode)
             print('[+] Sending back ' + str(forge))
-            irc.send(chan=testchannel, msg=forge)
             irc.send(chan=channel, msg=forge)
             time.sleep(5)
-        except:
+        except: #Too Wide
             time.sleep(1)
+
 
 
 def eq4():
     time.sleep(1)
-
+    #work in progress
 
 irc = IRC()
 channel = "candy"
