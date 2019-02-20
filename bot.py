@@ -87,8 +87,8 @@ def eq4():
     #work in progress
 
 irc = IRC()
-channel = "candy"
-testchannel = "#testit"
+channel = "Resolver"
+testchannel = "#resolver"
 server = "irc.root-me.org"
 nickname = "botep"
 init(server, channel, nickname, testchannel)
