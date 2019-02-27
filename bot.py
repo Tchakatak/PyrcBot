@@ -26,7 +26,7 @@ def refresh():
 def eq1():
     irc.send(chan=channel, msg='!ep1')
     text = refresh()
-    m = re.search('([0-9]*)\s/\s([0-9]*)', str(text)) #Need to improve.
+    m = re.search('([0-9]*)\s/\s([0-9]*)', str(text)) # Need to improve.
     if m is not None:
         try:
             print('[+] ' + str(m))
@@ -53,7 +53,8 @@ def eq2():
         try:
             print('[+] catched ' + str(text))
             decode = base64.b64decode(str(m.group(1)))
-            print('[+] Decoded string ' + str(decode) + ' From ' + str(m.group(1)))
+            print('[+] Decoded string ' + str(decode) + ' From '
+                + str(m.group(1)))
             forge = '!ep2 -rep ' + str(decode)
             print('[+] Sending back ' + str(forge))
             irc.send(chan=channel, msg=forge)
@@ -77,14 +78,14 @@ def eq3():
             print('[+] Sending back ' + str(forge))
             irc.send(chan=channel, msg=forge)
             time.sleep(5)
-        except: #Too Wide
+        except:  # too Wide
             time.sleep(1)
-
 
 
 def eq4():
     time.sleep(1)
-    #work in progress
+    # work in progress
+
 
 irc = IRC()
 channel = "Resolver"
@@ -93,18 +94,19 @@ server = "irc.root-me.org"
 nickname = "botep"
 init(server, channel, nickname, testchannel)
 
+
 try:
     while 1:
         text = refresh()
-        if text.find('PINGtest') != -1:
+        if text.find('user/ping') != -1:
             irc.send(chan=testchannel, msg='pong')
-        if text.find('eq1start') != -1:
+        if text.find('user/eq1start') != -1:
             eq1()
-        if text.find('eq2start') != -1:
+        if text.find('user/eq2start') != -1:
             eq2()
-        if text.find('eq3start') != -1:
+        if text.find('user/eq3start') != -1:
             eq3()
-        if text.find('eq4start') != -1:
+        if text.find('user/eq4start') != -1:
             eq4()
 except KeyboardInterrupt:
     print('\n[+] Closing bot')
