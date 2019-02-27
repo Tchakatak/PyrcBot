@@ -7,7 +7,7 @@ import re
 import base64
 import string
 import math
-
+import zlib
 
 def init(server, channel, nickname, testchannel):
     irc.connect(server)
@@ -26,7 +26,7 @@ def refresh():
 def eq1():
     irc.send(chan=channel, msg='!ep1')
     text = refresh()
-    m = re.search('([0-9]*)\s/\s([0-9]*)', str(text)) # Need to improve.
+    m = re.search('([0-9]*)\s/\s([0-9]*)', str(text)) # Need to impro.
     if m is not None:
         try:
             print('[+] ' + str(m))
@@ -40,7 +40,7 @@ def eq1():
             print('[+] Sending back ' + str(forge))
             irc.send(chan=channel, msg=forge)
             time.sleep(5)
-        except: #Too Wide
+        except:
             time.sleep(1)
 
 
@@ -59,7 +59,7 @@ def eq2():
             print('[+] Sending back ' + str(forge))
             irc.send(chan=channel, msg=forge)
             time.sleep(5)
-        except: #Too Wide
+        except:
             time.sleep(1)
 
 
@@ -78,17 +78,35 @@ def eq3():
             print('[+] Sending back ' + str(forge))
             irc.send(chan=channel, msg=forge)
             time.sleep(5)
-        except:  # too Wide
+        except:
             time.sleep(1)
 
 
 def eq4():
-    time.sleep(1)
-    # work in progress
+    irc.send(chan=channel, msg='!ep4')
+    text = refresh()
+    m = re.search('(?<= botep \:)(.*)', str(text))
+    print(m)
+    if m is not None:
+        try:
+            data = str(m.group(1))
+            print(data)
+            print('[+] catched ' + str(data))
+            decode = base64.b64decode(data)
+            print('[+] decoded ' + decode)
+            uncompress = zlib.decompress(decode)
+            print('[+] decompressed ' + uncompress)
+            forge = '!ep4 -rep ' + str(uncompress)
+            print('[+] Sending back ' + str(forge))
+            irc.send(chan=channel, msg=forge)
 
+
+        except zlib.error():
+            print("[-] Zlib error :'( )'")
+            time.sleep(1)
 
 irc = IRC()
-channel = "Resolver"
+channel = "candy"
 testchannel = "#resolver"
 server = "irc.root-me.org"
 nickname = "botep"
