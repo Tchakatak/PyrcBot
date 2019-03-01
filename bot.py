@@ -49,7 +49,6 @@ def eq2():
     irc.send(chan=channel, msg='!ep2')
     text = refresh()
     m = re.search('(?<= botep \:)(.*)', str(text))
-    print(m)
     if m is not None:
         try:
             print('[+] catched ' + str(text))
@@ -68,7 +67,6 @@ def eq3():
     irc.send(chan=channel, msg='!ep3')
     text = refresh()
     m = re.search('(?<= botep \:)(.*)', str(text))
-    print(m)
     if m is not None:
         try:
             rot13 = string.maketrans(
@@ -87,7 +85,6 @@ def eq4():
     irc.send(chan=channel, msg='!ep4')
     text = refresh()
     m = re.search('(?<= botep \:)(.*)', str(text))
-    print(m)
     if m is not None:
         try:
             data = str(m.group(1))
