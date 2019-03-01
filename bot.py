@@ -1,13 +1,11 @@
 #!/usr/bin/env python
-
-from irc import *
-
 import time
 import re
 import base64
 import string
 import math
 import zlib
+from irc import *
 
 
 def init(server, channel, nickname, testchannel):
