@@ -16,7 +16,8 @@ class IRC:
         self.irc.connect((server, 6667))  # connects to the server
 
     def nickuser(self, nickname):
-        self.irc.send("USER " + nickname + " " + nickname + " " + nickname + " bot!\r\n")  # user authentication
+        self.irc.send("USER " + nickname + " " + nickname + " "" + nickname + " " +
+                      + nickname + " bot!\r\n")  # user authentication
         print("[+] Send USER passed ")
         self.irc.send("NICK " + nickname + "\r\n")
         print("[+] Send NICK passed")

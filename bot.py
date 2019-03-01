@@ -9,6 +9,7 @@ import string
 import math
 import zlib
 
+
 def init(server, channel, nickname, testchannel):
     irc.connect(server)
     irc.nickuser(nickname)
@@ -26,7 +27,7 @@ def refresh():
 def eq1():
     irc.send(chan=channel, msg='!ep1')
     text = refresh()
-    m = re.search('([0-9]*)\s/\s([0-9]*)', str(text)) # Need to impro.
+    m = re.search('([0-9]*)\s/\s([0-9]*)', str(text))  # Need to impro.
     if m is not None:
         try:
             print('[+] ' + str(m))
@@ -54,7 +55,7 @@ def eq2():
             print('[+] catched ' + str(text))
             decode = base64.b64decode(str(m.group(1)))
             print('[+] Decoded string ' + str(decode) + ' From '
-                + str(m.group(1)))
+                  + str(m.group(1)))
             forge = '!ep2 -rep ' + str(decode)
             print('[+] Sending back ' + str(forge))
             irc.send(chan=channel, msg=forge)
@@ -71,8 +72,8 @@ def eq3():
     if m is not None:
         try:
             rot13 = string.maketrans(
-            "ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz",
-            "NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm")
+                "ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz",
+                "NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm")
             decode = string.translate(str(m.group(1)), rot13)
             forge = '!ep3 -rep ' + str(decode)
             print('[+] Sending back ' + str(forge))
@@ -100,10 +101,10 @@ def eq4():
             print('[+] Sending back ' + str(forge))
             irc.send(chan=channel, msg=forge)
 
-
         except zlib.error():
             print("[-] Zlib error :'( )'")
             time.sleep(1)
+
 
 irc = IRC()
 channel = "candy"
